@@ -1,0 +1,40 @@
+name: Deploy to production
+
+env:
+  PYTHON_VERSION: '3.10'
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_and_test:
+    uses: ./.github/workflows/build_and_test.yml
+
+  deploy:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Unpack the build, build Docker images and restart containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          port: ${{ secrets.DEPLOY_SSH_PORT }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          script: | 
+            cd ${{ secrets.DEPLOY_SOURCE_PATH }}
+            rm -rf read-it
+            git clone --depth=1 --branch=main https://github.com/wdebsqi/read-it.git
+            cd read-it
+            python3 -m pip install --upgrade pip
+            pip install -r requirements.txt
+            python3 manage.py runserver 0.0.0.0:${{ secrets.DEPLOY_APP_PORT }}
