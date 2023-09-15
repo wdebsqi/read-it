@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Unpack the build, build Docker images and restart containers
+      - name: SSH to the server, pull the newest branch, install dependencies and run the gunicorn service
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -37,4 +37,4 @@ jobs:
             cd read-it
             python3 -m pip install --upgrade pip
             pip install -r requirements.txt
-            python3 manage.py runserver 0.0.0.0:${{ secrets.DEPLOY_APP_PORT }}
+            echo ${{ secrets.DEPLOY_PASSWORD }} | sudo -S systemctl restart ${{ secrets.DEPLOY_SERVICE_FILE_NAME }}
