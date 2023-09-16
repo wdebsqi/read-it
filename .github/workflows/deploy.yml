@@ -35,6 +35,8 @@ jobs:
             rm -rf read-it
             git clone --depth=1 --branch=main https://github.com/wdebsqi/read-it.git
             cd read-it
-            python3 -m pip install --upgrade pip
-            pip install -r requirements.txt
-            echo ${{ secrets.DEPLOY_PASSWORD }} | sudo -S systemctl restart ${{ secrets.DEPLOY_SERVICE_FILE_NAME }}
+            docker compose down
+            docker rmi -f $(docker images -aq)
+            docker compose up -d
+            python3 manage.py migrate
+
