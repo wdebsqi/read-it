@@ -15,3 +15,5 @@ services:
     volumes:
       - "${POSTGRES_DIR}:/var/lib/postgresql/data"
     env_file: .env
+    environment:
+      - TZ: "Europe/Warsaw"

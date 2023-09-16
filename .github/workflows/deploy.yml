@@ -34,7 +34,12 @@ jobs:
             cd ${{ secrets.DEPLOY_SOURCE_PATH }}
             rm -rf read-it
             git clone --depth=1 --branch=main https://github.com/wdebsqi/read-it.git
+            cp .env read-it/.env
             cd read-it
+            apt-get update
+            apt-get install -y libpq-dev gcc
+            pip install --upgrade pip
+            pip install -r requirements.txt
             docker compose down
             docker rmi -f $(docker images -aq)
             docker compose up -d
