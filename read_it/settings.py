@@ -25,7 +25,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_IS_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOST")]
+
+CSRF_TRUSTED_ORIGINS = [os.getenv("DJANGO_TRUSTED_ORIGIN")]
 
 # Application definition
 
@@ -118,6 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_ROOT = os.getenv("DJANGO_STATIC_PATH")
 STATIC_URL = "static/"
 
 # Default primary key field type

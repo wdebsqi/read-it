@@ -31,4 +31,5 @@ jobs:
         echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
         echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
         echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+        echo DJANGO_TRUSTED_ORIGIN=${{ secrets.DJANGO_TRUSTED_ORIGIN }} >> .env
         python manage.py test

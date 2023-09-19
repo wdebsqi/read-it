@@ -43,5 +43,6 @@ jobs:
             docker compose down
             docker rmi -f $(docker images -aq)
             docker compose up -d
-            python3 manage.py migrate
+            python3 manage.py collectstatic --no-input
+            python3 manage.py migrate --no-input
 
