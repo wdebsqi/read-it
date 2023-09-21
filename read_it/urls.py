@@ -1,3 +1,5 @@
+from . import views
+
 """
 URL configuration for read_it project.
 
@@ -17,6 +19,4 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-]
+urlpatterns = [path("admin/", admin.site.urls), path("book/<int:id>", views.book_details)]
