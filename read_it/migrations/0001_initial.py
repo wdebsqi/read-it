@@ -23,12 +23,15 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.CharField(max_length=150)),
-                ("author", models.CharField(max_length=200)),
-                ("published", models.DateField()),
+                ("author", models.CharField(max_length=200, null=True)),
+                (
+                    "published",
+                    models.DateField(null=True),
+                ),
                 (
                     "created_at",
                     models.DateTimeField(
-                        default=datetime.datetime(2023, 9, 21, 18, 38, 22, 856409)
+                        default=datetime.datetime(2023, 9, 21, 18, 38, 22, 856409),
                     ),
                 ),
             ],
