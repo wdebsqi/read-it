@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "db_logging.apps.DbLoggingConfig",
     "read_it.apps.ReadItConfig",
 ]
 
