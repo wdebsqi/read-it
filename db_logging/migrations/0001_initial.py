@@ -31,10 +31,11 @@ class Migration(migrations.Migration):
                             ("warning", "warning"),
                             ("error", "error"),
                             ("critical", "critical"),
-                        ]
+                        ],
+                        max_length=50,
                     ),
                 ),
-                ("path", models.CharField()),
+                ("path", models.CharField(max_length=200)),
                 ("message", models.TextField()),
             ],
             options={
