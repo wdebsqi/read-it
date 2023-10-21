@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "db_logging.apps.DbLoggingConfig",
+    "goodreads_scraping.apps.GoodreadsScrapingConfig",
     "read_it.apps.ReadItConfig",
 ]
 
