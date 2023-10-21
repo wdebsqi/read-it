@@ -148,7 +148,7 @@ LOGGING = {
     },
     "formatters": {
         "verbose": {
-            "format": "{asctime} | {levelname} | {name} | {pathname}:{lineno} | {message} | {stack_info}",
+            "format": "{asctime} | {levelname} | {name} | {pathname}:{lineno} | {message} | {exc_info}",
             "style": "{",
         },
         "django.server": {
@@ -162,16 +162,19 @@ LOGGING = {
             "level": "INFO",
             "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
+            "formatter": "verbose",
         },
         "django.server": {
             "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "django.server",
         },
-        "db": {"class": "db_logging.DbLogHandler.DbLogHandler", "formatter": "verbose"},
+        "db": {
+            "class": "db_logging.DbLogHandler.DbLogHandler",
+        },
     },
     "loggers": {
-        "read_it": {"handlers": ["db"], "level": "WARNING", "propagate": True},
+        "db": {"handlers": ["db", "console"], "level": "INFO", "propagate": True},
         "django": {
             "handlers": ["console"],
             "level": "INFO",
