@@ -17,13 +17,18 @@ class BookGenreParser(BaseParser):
         )
 
     def parse(self) -> list[Genre]:
+        genre_names = self._parse_genre_names()
+
+        return self._get_genres_based_on_genre_names(genre_names)
+
+    def parse_genre_names(self) -> list[str]:
         genre_names = []
         xpath_matches = self._html_tree.xpath(self.get_xpath())
 
         for xpath_match in xpath_matches:
             genre_names.append(xpath_match.text)
 
-        return self._get_genres_based_on_genre_names(genre_names)
+        return genre_names
 
     def _get_genres_based_on_genre_names(self, genre_names: list[str]) -> list[Genre]:
         genres = []
