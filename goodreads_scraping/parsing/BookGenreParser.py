@@ -17,7 +17,7 @@ class BookGenreParser(BaseParser):
         )
 
     def parse(self) -> list[Genre]:
-        genre_names = self._parse_genre_names()
+        genre_names = self.parse_genre_names()
 
         return self._get_genres_based_on_genre_names(genre_names)
 
