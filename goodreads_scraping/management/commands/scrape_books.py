@@ -50,16 +50,16 @@ class Command(BaseCommand):
 
             match = GoodreadsScrapingResult.objects.filter(url__exact=result.url).first()
             if not match:
-                logging.info(f"No previously existing record for a book with {id} found, creating a new one")
+                logger.info(f"No previously existing record for a book with {id} found, creating a new one")
                 try:
                     result.save()
-                    logging.info(f"Successfully saved the result from {result.url}")
+                    logger.info(f"Successfully saved the result from {result.url}")
                 except Exception as e:
                     logger.error(e)
                 continue
 
             if overwrite:
-                logging.info(f"Previously existing record for a book with {id} found, overwriting it")
+                logger.info(f"Previously existing record for a book with {id} found, overwriting it")
                 match.created_at = result.created_at
                 match.http_status_code = result.http_status_code
                 match.title = result.title
@@ -67,7 +67,7 @@ class Command(BaseCommand):
                 match.website_content = result.website_content
                 try:
                     match.save()
-                    logging.info(f"Successfully saved the result from {result.url}")
+                    logger.info(f"Successfully saved the result from {result.url}")
                 except Exception as e:
                     logger.error(e)
                 continue
