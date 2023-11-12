@@ -4,7 +4,7 @@ from datetime import datetime
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from goodreads_scraping.models import GoodreadsScrapingResult
+from goodreads_scraping.models import GoodreadsBookPage
 
 from .Author import Author
 from .Genre import Genre
@@ -16,8 +16,8 @@ class Book(models.Model):
     published_on = models.DateField(null=True, blank=True)
     description = models.TextField(default="", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    goodreads_scraping_result = models.ForeignKey(
-        GoodreadsScrapingResult, on_delete=models.CASCADE, blank=True, null=True
+    goodreads_book_page = models.ForeignKey(
+        GoodreadsBookPage, on_delete=models.CASCADE, blank=True, null=True
     )
     authors = models.ManyToManyField(Author, through="BookAuthor")
     genres = models.ManyToManyField(Genre, through="BookGenre")
