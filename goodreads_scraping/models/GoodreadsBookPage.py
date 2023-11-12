@@ -3,7 +3,7 @@ import json
 from django.db import models
 
 
-class GoodreadsScrapingResult(models.Model):
+class GoodreadsBookPage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     url = models.CharField(blank=False, max_length=200)
     http_status_code = models.IntegerField(blank=False)
@@ -14,7 +14,7 @@ class GoodreadsScrapingResult(models.Model):
     parsed_at = models.DateTimeField(null=True)
 
     class Meta:
-        db_table = "goodreads_scraping_result"
+        db_table = "goodreads_book_page"
 
     def __str__(self) -> str:
         return json.dumps(

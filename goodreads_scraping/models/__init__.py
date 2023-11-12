@@ -1,3 +1,3 @@
-__all__ = ["GoodreadsScrapingResult"]
+__all__ = ["GoodreadsBookPage"]
 
-from .GoodreadsScrapingResult import GoodreadsScrapingResult
+from .GoodreadsBookPage import GoodreadsBookPage

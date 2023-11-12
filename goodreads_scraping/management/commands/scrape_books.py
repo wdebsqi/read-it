@@ -5,7 +5,7 @@ from typing import Any
 
 from django.core.management.base import BaseCommand, CommandParser
 
-from ...models import GoodreadsScrapingResult
+from ...models import GoodreadsBookPage
 from .Scraper import Scraper
 
 logger = logging.getLogger("db")
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                 logger.error(e)
                 continue
 
-            match = GoodreadsScrapingResult.objects.filter(url__exact=result.url).first()
+            match = GoodreadsBookPage.objects.filter(url__exact=result.url).first()
             if not match:
                 logger.info(f"No previously existing record for a book with {id} found, creating a new one")
                 try:
