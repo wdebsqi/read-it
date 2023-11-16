@@ -1,4 +1,5 @@
 __all__ = [
+    "AuthorIdsFromBookPageParser",
     "BookDescriptionParser",
     "BookGenreParser",
     "BookParser",
@@ -6,6 +7,7 @@ __all__ = [
     "BookTitleParser",
 ]
 
+from .AuthorIdsFromBookPageParser import AuthorIdsFromBookPageParser
 from .BookDescriptionParser import BookDescriptionParser
 from .BookGenreParser import BookGenreParser
 from .BookParser import BookParser
