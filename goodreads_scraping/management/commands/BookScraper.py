@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from ...models import GoodreadsBookPage
 
 
-class Scraper:
+class BookScraper:
     BASE_URL = "http://goodreads.com/book/show/"
 
     def scrape(self, book_id: int) -> GoodreadsBookPage:
