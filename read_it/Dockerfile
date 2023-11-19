@@ -4,6 +4,7 @@ WORKDIR /read_it
 
 COPY ./requirements.txt /read_it/requirements.txt
 COPY ./read_it /read_it/read_it
+COPY ./db_logging /read_it/db_logging
 COPY ./manage.py /read_it/manage.py
 
 RUN apt-get update

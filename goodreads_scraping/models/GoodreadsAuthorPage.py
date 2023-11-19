@@ -2,10 +2,8 @@ import json
 
 from django.db import models
 
-from .GoodreadsAuthorPage import GoodreadsAuthorPage
 
-
-class GoodreadsBookPage(models.Model):
+class GoodreadsAuthorPage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     url = models.CharField(blank=False, max_length=200, unique=True)
     http_status_code = models.IntegerField(blank=False)
@@ -14,10 +12,9 @@ class GoodreadsBookPage(models.Model):
     website_content = models.TextField()
     parser_version = models.IntegerField(null=True)
     parsed_at = models.DateTimeField(null=True)
-    authors = models.ManyToManyField(GoodreadsAuthorPage, through="GoodreadsBookAuthor")
 
     class Meta:
-        db_table = "goodreads_book_page"
+        db_table = "goodreads_author_page"
 
     def __str__(self) -> str:
         return json.dumps(

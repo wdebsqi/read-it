@@ -3,24 +3,24 @@ import re
 import requests as r
 from bs4 import BeautifulSoup
 
-from ...models import GoodreadsBookPage
+from ...models import GoodreadsAuthorPage
 
 
-class Scraper:
-    BASE_URL = "http://goodreads.com/book/show/"
+class AuthorScraper:
+    BASE_URL = "http://goodreads.com/author/show/"
 
-    def scrape(self, book_id: int) -> GoodreadsBookPage:
-        """Scrapes the HTML for a given book_id."""
+    def scrape(self, author_id: int) -> GoodreadsAuthorPage:
+        """Scrapes the HTML for a given author_id."""
 
-        url = f"{self.BASE_URL}{book_id}"
+        url = f"{self.BASE_URL}{author_id}"
         response = r.get(url)
 
         return self._map_http_response_to_result(response)
 
-    def _map_http_response_to_result(self, response: r.Response) -> GoodreadsBookPage:
+    def _map_http_response_to_result(self, response: r.Response) -> GoodreadsAuthorPage:
         """Maps the HTML response to the model class representing the scraping result."""
 
-        result = GoodreadsBookPage()
+        result = GoodreadsAuthorPage()
         result.url = response.url
         result.http_status_code = response.status_code
         result.headers = response.headers
