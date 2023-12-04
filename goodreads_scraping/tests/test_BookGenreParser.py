@@ -1,8 +1,8 @@
 from ..parsing import BookGenreParser
-from . import BaseParserTestCase
+from . import BaseBookParserTestCase
 
 
-class BookGenreParserTest(BaseParserTestCase):
+class BookGenreParserTest(BaseBookParserTestCase):
     def setUp(self):
         super().setUp()
         self.parser = BookGenreParser(self.test_html)
