@@ -7,6 +7,7 @@ __all__ = [
     "BookTitleParser",
     "AuthorDatesParser",
     "AuthorNamesParser",
+    "AuthorParser",
 ]
 
 from .AuthorIdsFromBookPageParser import AuthorIdsFromBookPageParser
@@ -17,3 +18,4 @@ from .BookPublicationDateParser import BookPublicationDateParser
 from .BookTitleParser import BookTitleParser
 from .AuthorDatesParser import AuthorDatesParser
 from .AuthorNamesParser import AuthorNamesParser
+from .AuthorParser import AuthorParser

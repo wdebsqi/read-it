@@ -1,3 +1,4 @@
-__all__ = ["BaseParserTestCase"]
+__all__ = ["BaseBookParserTestCase", "BaseAuthorParserTestCase"]
 
-from .BaseParserTestCase import BaseParserTestCase
+from .BaseBookParserTestCase import BaseBookParserTestCase
+from .BaseAuthorParserTestCase import BaseAuthorParserTestCase

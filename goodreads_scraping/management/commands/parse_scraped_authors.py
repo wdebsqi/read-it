@@ -7,7 +7,7 @@ from django.utils import timezone
 from goodreads_scraping.models import GoodreadsAuthorPage
 from read_it.models import Author
 
-from ...parsing import BookParser, AuthorParser
+from ...parsing import AuthorParser
 
 logger = logging.getLogger("db")
 
@@ -22,22 +22,24 @@ class Command(BaseCommand):
                 author_parser = AuthorParser(scraping_result.website_content)
                 parsed_author = author_parser.parse()
 
-                already_parsed_author_in_db = Author.objects.filter(goodreads_book_page=scraping_result).first()
+                already_parsed_author_in_db = Author.objects.filter(goodreads_author_page=scraping_result).first()
                 if already_parsed_author_in_db:
                     logger.info(
                         f"Parsed book already exists for this {GoodreadsAuthorPage.__name__}." + "Trying to update it..."
                     )
-                    already_parsed_author_in_db.title = parsed_author.title
-                    already_parsed_author_in_db.description = parsed_author.description
-                    already_parsed_author_in_db.published_on = parsed_author.published_on
+                    already_parsed_author_in_db.first_name = parsed_author.first_name
+                    already_parsed_author_in_db.middle_names = parsed_author.middle_names
+                    already_parsed_author_in_db.last_name = parsed_author.last_name
+                    already_parsed_author_in_db.birth_date = parsed_author.birth_date
+                    already_parsed_author_in_db.death_date = parsed_author.death_date   
                     already_parsed_author_in_db.save()
                 else:
-                    logger.info(f"No parsed book exist for this {GoodreadsAuthorPage.__name__}." + "Trying to save a new one...")
-                    parsed_author.goodreads_book_page = scraping_result
+                    logger.info(f"No parsed author exist for this {GoodreadsAuthorPage.__name__}." + "Trying to save a new one...")
+                    parsed_author.goodreads_author_page = scraping_result
                     parsed_author.save()
 
                 logger.info(f"Updating {GoodreadsAuthorPage.__name__}.parser_version...")
-                scraping_result.parser_version = BookParser.VERSION
+                scraping_result.parser_version = AuthorParser.VERSION
                 scraping_result.parsed_at = timezone.now()
                 scraping_result.save()
             except Exception as e:

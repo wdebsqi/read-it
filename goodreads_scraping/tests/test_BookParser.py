@@ -3,10 +3,10 @@ from datetime import datetime
 from read_it.models import Book
 
 from ..parsing import BookParser
-from . import BaseParserTestCase
+from . import BaseBookParserTestCase
 
 
-class BookParserTest(BaseParserTestCase):
+class BookParserTest(BaseBookParserTestCase):
     def setUp(self):
         super().setUp()
         self.parser = BookParser(self.test_html)

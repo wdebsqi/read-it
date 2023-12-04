@@ -10,9 +10,8 @@ class AuthorParser:
     VERSION = 1
 
     def __init__(self, html: str) -> None:
-        self._html_tree = etree.fromstring(html)
-        self.names_parser = AuthorNamesParser()
-        self.dates_parser = AuthorDatesParser()
+        self.names_parser = AuthorNamesParser(html)
+        self.dates_parser = AuthorDatesParser(html)
 
     def parse(self) -> Author:
         first_name, middle_names, last_name = self.names_parser.parse()

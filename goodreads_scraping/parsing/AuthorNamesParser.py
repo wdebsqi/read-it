@@ -21,14 +21,11 @@ class AuthorNamesParser(BaseParser):
         return "\n".join(text_lines)
 
     def get_first_name(self) -> str:
-        """Returns the first name of the author."""
         return self.parsed_author_names.split()[0]
 
     def get_middle_names(self) -> str | None:
-        """Returns the middle names of the author."""
         if len(self.parsed_author_names.split()) > 2:
             return " ".join(self.parsed_author_names.split()[1:-1])
 
     def get_last_name(self) -> str:
-        """Returns the last name of the author."""
         return self.parsed_author_names.split()[-1]
