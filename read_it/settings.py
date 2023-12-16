@@ -13,6 +13,8 @@ import os
 import sys
 from pathlib import Path
 
+IS_RUNNING_TESTS = "test" in sys.argv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = (
+    "secret-key-used-when-automated-tests-are-being-ran"
+    if IS_RUNNING_TESTS
+    else os.getenv("DJANGO_SECRET_KEY")
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_IS_DEBUG", "False") == "True"
@@ -78,11 +84,11 @@ WSGI_APPLICATION = "read_it.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if "test" in sys.argv:
+if IS_RUNNING_TESTS:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "TEST": {"ENGINE": "django.db.backends.sqlite3", "NAME": "test_db.sqlite3", "DEPENDENCIES": []},
+            "TEST": {"NAME": "test_db.sqlite3"},
         },
     }
 else:
@@ -94,7 +100,6 @@ else:
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
             "HOST": os.getenv("POSTGRES_HOST"),
             "PORT": os.getenv("POSTGRES_PORT"),
-            "TEST": {"ENGINE": "django.db.backends.sqlite3", "NAME": "test_db.sqlite3", "DEPENDENCIES": []},
         },
     }
 
