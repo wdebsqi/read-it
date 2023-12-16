@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome!</h1>
+<h2>Below you can find the newly published books:</h2>
+<ul>
+    {% for book in last_published_books %}
+    <li><a href="{% url 'book_details' book.id %}">{{ book.title }}</a> ({{ book.published_on|date:"Y-m-d" }})
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
