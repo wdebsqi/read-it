@@ -19,4 +19,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [path("admin/", admin.site.urls), path("book/<int:id>", views.book_details)]
+urlpatterns = [
+    path("", views.home, name="home"),
+    path("book/<int:id>", views.book_details, name="book_details"),
+    path("admin/", admin.site.urls),
+]

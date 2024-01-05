@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ book.title }}</h1>
+
+<h2>Publication date: {{ book.published_on|date:"Y-m-d" }}</h2>
+<p>Description:</p>
+<p>{{ book.description }}</p>
+
+{% if genres %}
+<p>Genres:</p>
+{{ genres|join:", " }}
+{% endif %}
+
+{% endblock %}

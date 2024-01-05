@@ -1,6 +1,6 @@
 import logging
 
-from . import TestCase
+from django.test import TestCase
 
 
 class LogTest(TestCase):
