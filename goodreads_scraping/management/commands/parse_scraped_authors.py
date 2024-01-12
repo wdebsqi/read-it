@@ -4,8 +4,8 @@ from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.utils import timezone
 
-from goodreads_scraping.models import GoodreadsAuthorPage
-from read_it.models import Author
+from goodreads_scraping.models import GoodreadsAuthorPage, GoodreadsBookAuthor
+from read_it.models import Author, Book
 
 from ...parsing import AuthorParser
 
@@ -31,10 +31,13 @@ class Command(BaseCommand):
                     already_parsed_author_in_db.middle_names = parsed_author.middle_names
                     already_parsed_author_in_db.last_name = parsed_author.last_name
                     already_parsed_author_in_db.birth_date = parsed_author.birth_date
-                    already_parsed_author_in_db.death_date = parsed_author.death_date   
+                    already_parsed_author_in_db.death_date = parsed_author.death_date
                     already_parsed_author_in_db.save()
+
                 else:
-                    logger.info(f"No parsed author exist for this {GoodreadsAuthorPage.__name__}." + "Trying to save a new one...")
+                    logger.info(
+                        f"No parsed author exist for this {GoodreadsAuthorPage.__name__}." + "Trying to save a new one..."
+                    )
                     parsed_author.goodreads_author_page = scraping_result
                     parsed_author.save()
 
@@ -42,6 +45,12 @@ class Command(BaseCommand):
                 scraping_result.parser_version = AuthorParser.VERSION
                 scraping_result.parsed_at = timezone.now()
                 scraping_result.save()
+
+                goodreads_book_author_objects = GoodreadsBookAuthor.objects.filter(
+                    id=parsed_author.goodreads_author_page_id
+                ).first()
+                book_id = goodreads_book_author_objects.book_id
+                Book.objects.get(id=book_id).authors.add(parsed_author)
             except Exception as e:
                 logger.error(e)
 

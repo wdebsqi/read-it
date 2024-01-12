@@ -12,7 +12,7 @@ class GoodreadsBookPage(models.Model):
     title = models.CharField(max_length=200)
     headers = models.TextField()
     website_content = models.TextField()
-    parser_version = models.IntegerField(null=True)
+    parser_version = models.IntegerField(default=0)
     parsed_at = models.DateTimeField(null=True)
     authors = models.ManyToManyField(GoodreadsAuthorPage, through="GoodreadsBookAuthor")
 

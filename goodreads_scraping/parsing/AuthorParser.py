@@ -1,5 +1,3 @@
-from lxml import etree
-
 from read_it.models import Author
 
 from .AuthorNamesParser import AuthorNamesParser

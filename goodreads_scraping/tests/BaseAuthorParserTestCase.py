@@ -7,5 +7,5 @@ class BaseAuthorParserTestCase(DjangoTestCase):
     databases = {"test"}
 
     def setUp(self):
-        with open(Path(__file__).parent / "example_author_page.html", "r", encoding='utf-8') as f:
+        with open(Path(__file__).parent / "example_author_page.html", "r") as f:
             self.test_html = f.read()

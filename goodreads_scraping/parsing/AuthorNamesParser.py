@@ -16,9 +16,10 @@ class AuthorNamesParser(BaseParser):
         return (self.get_first_name(), self.get_middle_names(), self.get_last_name())
 
     def _parse_names(self) -> str:
-        xpath_match = self.xml.xpath(self.get_xpath)[0]
-        text_lines = xpath_match.itertext()
-        return "\n".join(text_lines)
+        xpath_match = self.xml.xpath(self.get_xpath)
+        if not xpath_match:
+            raise ValueError("Could not parse author names" + " from xpath: " + self.get_xpath + " in html")
+        return xpath_match[0].text
 
     def get_first_name(self) -> str:
         return self.parsed_author_names.split()[0]
@@ -28,4 +29,6 @@ class AuthorNamesParser(BaseParser):
             return " ".join(self.parsed_author_names.split()[1:-1])
 
     def get_last_name(self) -> str:
+        if len(self.parsed_author_names.split()) < 2:
+            raise ValueError("Could not parse author last name" + " from xpath: " + self.get_xpath + " in html")
         return self.parsed_author_names.split()[-1]
